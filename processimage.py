@@ -22,8 +22,8 @@ def fetch_datasets(folder):
             (x,y,w,h) = cv2.boundingRect(contours[index])
             cropped = imread[y:y+h,x:x+w]
             cv2.imwrite("datasets/{0}-{1}.png".format(str(outer_loop),str(index)),cropped)
-            break
+            #break
         outer_loop+=1
 
-#fetch_datasets("cut/")
+fetch_datasets("cut/")
 
