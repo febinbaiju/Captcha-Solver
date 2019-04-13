@@ -3,10 +3,10 @@ import csv
 import numpy as np
 import math
 
-
+captcha_identified = []
 dataset_file = "dataset.csv"
 
-filepath = "cut/image100.png"
+filepath = "/home/febin/Downloads/otp.png"
 
 imread = cv2.imread(filepath,0)
 height,width = imread.shape
@@ -37,8 +37,6 @@ for index in range(1,len(contours)):
     for index in range(0,column_values.shape[0]):
         y+=column_values[index]
 
-    print(x,y)
-
     eucs = []
 
     #read datasets from csv
@@ -59,9 +57,26 @@ for index in range(1,len(contours)):
             euc = math.sqrt(q1+q2)
             eucs.append(euc)
     
-    print(eucs)
-    print(cropped)
-    cv2.imshow("contour",cropped)
-    cv2.waitKey(0)
+    temp_store = eucs.copy()
+    temp_store.sort()
+    min_euc = temp_store[0]
+
+    if min_euc>x:
+        continue
+
+    #finding the index of euclidean distance
+    index = eucs.index(min_euc)+1
+    captcha_identified.append(index)
+    print("identified: "+str(index))
+
+captcha_identified.reverse()
+if len(captcha_identified)>0:
     print("\n")
+    print("CAPTCHA DECODED: ")
+    print(captcha_identified[:len(captcha_identified)])
+else:
+    print("CAPTCHA DECODING FAILED")        
+cv2.imshow("image",cv2.imread(filepath))
+cv2.waitKey(0)
+
 cv2.destroyAllWindows()
