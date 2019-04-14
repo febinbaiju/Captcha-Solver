@@ -6,7 +6,7 @@ import math
 captcha_identified = []
 dataset_file = "dataset.csv"
 
-filepath = "/home/febin/Downloads/otp.png"
+filepath = "test.png"
 
 imread = cv2.imread(filepath,0)
 height,width = imread.shape
