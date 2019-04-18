@@ -72,6 +72,10 @@ def get_captcha(filepath="test.png",demo=False):
     
     if demo==False:
         decoded_captcha = ''.join(str(e) for e in captcha_identified)
+        if len(captcha_identified)>0:
+            print("\n")
+            print("DECODED CAPTCHA: ")
+            print(captcha_identified[:len(captcha_identified)])
         return decoded_captcha
 
     if len(captcha_identified)>0:
